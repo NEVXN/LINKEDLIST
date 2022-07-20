@@ -1,60 +1,58 @@
-#include<stdio.h>
-int stack[20];
-int top = -1;
+#include <stdio.h>
+#include <stdlib.h>
+#include <ctype.h>
+# define n 5
+
+int top=-1;
+int stack[n];
 
 void push(int x)
 {
-    stack[++top] = x;
+	stack[++top]=x;
 }
 
-int pop()
+int  pop()
 {
-    return stack[top--];
+	return stack[top--];
 }
 
 void main()
 {
-    char px[20];
-    int n1,n2,n3,num,i=0;
-    printf("Enter the expression : ");
-    scanf("%s",px);
-    while(px[i] != '\0')
-    {
-        if(isdigit(px[i]))
-        {
-            num = px[i] - 48;
-            push(num);
-        }
-        else
-        {
-            n1 = pop();
-            n2 = pop();
-            switch(px[i])
-            {
-            case '+':
-            {
-                n3 = n1 + n2;
-                break;
-            }
-            case '-':
-            {
-                n3 = n2 - n1;
-                break;
-            }
-            case '*':
-            {
-                n3 = n1 * n2;
-                break;
-            }
-            case '/':
-            {
-                n3 = n2 / n1;
-                break;
-            }
-           }
-            push(n3);
-        }
-        i++;
-    }
-    printf("\nThe result of the expression %s  =  %d\n\n",px,pop());
+	char exp[20];
+	char *e;
+	int n1,n2,n3,num;
+	printf("Enter the expression: ");
+	scanf("%s",exp);
+	e=exp;
+	while (*e !='\0')
+	{
+		if (isdigit(*e))
+		{
+			num=*e -48;
+			push(num);
+		}
+		else
+		{
+			n1=pop();
+			n2=pop();
+			switch(*e)
+			{
+				case '+':
+					n3=n1 +n2;
+					break;
+				case '-':
+					n3= n1 - n2;
+					break;
+				case '*':
+					n3 =n1 * n2;
+					break;
+				case '/':
+					n3 = n1/n2;
+					break;
+			}
+			push (n3);
+		}
+		e++;
+	}
+	printf("The evaluated expression %s  is: %d\n\n",exp,pop());
 }
